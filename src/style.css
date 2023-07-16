@@ -1,0 +1,142 @@
+body {
+  background-image: url("../img/Morning.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+input {
+  border-radius: 2px;
+  padding: 5px;
+}
+form {
+  margin: 0px 0px 180px 0px;
+}
+h3 {
+  position: relative;
+  top: -30px;
+}
+
+.row.today {
+  padding-left: 15%;
+}
+.container {
+  font-family: "Press Start 2P", cursive;
+  color: black;
+  margin-top: 3%;
+}
+.row.today a {
+  margin-bottom: 5%;
+  font-size: 30px;
+  text-decoration: none;
+  color: black;
+}
+.row.today p {
+  margin-bottom: 5%;
+  font-size: 30px;
+  text-decoration: none;
+  color: black;
+  padding: 0px;
+}
+#celsius {
+  margin-left: 13%;
+  margin-right: none;
+  position: relative;
+  left: 17px;
+}
+#fahrenheit {
+  position: relative;
+  left: -40px;
+}
+.row.today a:hover {
+  color: antiquewhite;
+  cursor: pointer;
+}
+.row.today h4 {
+  margin-left: 1%;
+}
+
+.row.city {
+  padding-left: 13%;
+}
+.row.city h2 {
+  padding-left: 23%;
+  font-size: 45px;
+}
+.row form {
+  margin-top: 2%;
+  text-align: center;
+}
+.today-temperature {
+  font-size: 100px;
+  font-weight: 700;
+}
+.row.today h1 {
+  padding-left: 5%;
+}
+
+.row.today {
+  text-align: center;
+  align-items: center;
+}
+
+.row.today img {
+  max-width: 18%;
+}
+#form-write {
+  background-color: rgba(250, 235, 215, 0.762);
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+}
+
+.button {
+  background-color: rgba(250, 235, 215, 0.913);
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3);
+}
+
+.button:hover {
+  background-color: rgba(0, 0, 0, 0.614);
+  color: antiquewhite;
+  box-shadow: 1px 1px 2px 1px rgba(250, 235, 215, 0.3);
+}
+.weather-icon-week {
+  width: 100px;
+}
+
+.day {
+  text-align: center;
+
+  margin: 0px 30px 0 0;
+  padding: 20px 0px 0px;
+  border: 1px solid rgba(165, 192, 220, 0.5);
+  border-radius: 10px;
+  background-color: rgba(239, 245, 251, 0.4);
+}
+.day:hover {
+  background-color: rgba(0, 0, 0, 0.312);
+  color: antiquewhite;
+}
+.day img {
+  height: 90px;
+  width: auto;
+}
+.day h5 {
+  margin-bottom: 20px;
+}
+.day p {
+  margin-top: 20px;
+}
+
+#button {
+  position: relative;
+  top: -36px;
+  max-width: 25%;
+  background-color: rgba(250, 235, 215, 0.784);
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3);
+}
+
+#button:hover {
+  background-color: rgba(0, 0, 0, 0.516);
+  color: antiquewhite;
+  box-shadow: 1px 1px 2px 1px rgba(250, 235, 215, 0.3);
+}
