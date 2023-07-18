@@ -50,14 +50,17 @@ h3 {
 
 .row.city {
   padding-left: 13%;
+  align-items: center;
 }
 .row.city h2 {
   padding-left: 23%;
+
   font-size: 45px;
 }
 .row form {
   margin-top: 2%;
   text-align: center;
+  padding-left: 310px;
 }
 .today-temperature {
   font-size: 100px;
@@ -154,4 +157,10 @@ h3 {
 #fahrenheit {
   position: relative;
   left: -40px;
+}
+
+#weather-description {
+  position: relative;
+  left: -4%;
+  padding-top: 3%;
 }

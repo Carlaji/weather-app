@@ -21,15 +21,19 @@ function showWeather(response) {
   let h4wind = document.querySelector("#wind");
   let h4humidity = document.querySelector("#humidity");
   let iconElement = document.querySelector("#icon");
+  let description = document.querySelector("#weather-description");
   let temperature = Math.round(response.data.main.temp);
   let humidity = Math.round(response.data.main.humidity);
   let wind = Math.round(response.data.wind.speed);
+  let weatherDescription = response.data.weather[0].main;
 
   celsiusTemperature = response.data.main.temp;
 
   h1.innerHTML = `${temperature}`;
   h4wind.innerHTML = `Wind: ${wind}km/h`;
   h4humidity.innerHTML = `Humidity: ${humidity}%`;
+  description.innerHTML = `${weatherDescription}`;
+
   if (response.data.weather[0].description === "clear sky") {
     iconElement.setAttribute("src", "/img/sun.png");
   } else if (response.data.weather[0].description === "few clouds") {
@@ -84,7 +88,9 @@ function searchCity(response) {
   let wind = Math.round(response.data.wind.speed);
   let h4wind = document.querySelector("#wind");
   let iconElement = document.querySelector("#icon");
-
+  let description = document.querySelector("#weather-description");
+  let weatherDescription = response.data.weather[0].main;
+  description.innerHTML = `${weatherDescription}`;
   h2.innerHTML = `${city}`;
   h1.innerHTML = `${temperature}`;
   h4humidity.innerHTML = `Humidity: ${humidity}%`;
@@ -114,6 +120,11 @@ document.getElementById("button").onclick = function () {
   navigator.geolocation.getCurrentPosition(searchMe);
 };
 
+function search(city) {
+  let apiKey = "cabdbda40038ba7d1165b953b1c7bd6c";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(showWeather);
+}
 // C to F
 
 function displayCelsius(event) {
