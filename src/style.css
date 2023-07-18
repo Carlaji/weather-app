@@ -79,12 +79,7 @@ h3 {
 }
 
 .row.today img {
-  max-width: 18%;
-}
-#form-write {
-  background-color: rgba(250, 235, 215, 0.762);
-  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3);
-  border-radius: 3px;
+  width: 190px;
 }
 
 .button {
@@ -126,6 +121,11 @@ h3 {
   margin-top: 20px;
 }
 
+#form-write {
+  background-color: rgba(250, 235, 215, 0.762);
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+}
 #button {
   position: relative;
   top: -36px;

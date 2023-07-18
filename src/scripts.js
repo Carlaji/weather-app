@@ -15,17 +15,37 @@ let minutes = String(now.getMinutes()).padStart(2, "0");
 let h3 = document.querySelector("#current-time");
 h3.innerHTML = `Current Time: ${days[day]} ${hour}:${minutes}`;
 
-// Change temperature + Wind + Humidity
+// Change temperature + Wind + Humidity + change icon depending of temperature
 function showWeather(response) {
-  let temperature = Math.round(response.data.main.temp);
   let h1 = document.querySelector("h1");
-  h1.innerHTML = `${temperature}`;
-  let humidity = Math.round(response.data.main.humidity);
-  let h4humidity = document.querySelector("#humidity");
-  h4humidity.innerHTML = `Humidity: ${humidity}%`;
-  let wind = Math.round(response.data.wind.speed);
   let h4wind = document.querySelector("#wind");
+  let h4humidity = document.querySelector("#humidity");
+  let iconElement = document.querySelector("#icon");
+  let temperature = Math.round(response.data.main.temp);
+  let humidity = Math.round(response.data.main.humidity);
+  let wind = Math.round(response.data.wind.speed);
+
+  h1.innerHTML = `${temperature}`;
   h4wind.innerHTML = `Wind: ${wind}km/h`;
+  h4humidity.innerHTML = `Humidity: ${humidity}%`;
+  if (response.data.weather[0].description === "clear sky") {
+    iconElement.setAttribute("src", "/img/sun.png");
+  } else if (response.data.weather[0].description === "few clouds") {
+    iconElement.setAttribute("src", "/img/sunc.png");
+  } else if (
+    response.data.weather[0].description === "shower rain" ||
+    response.data.weather[0].description === "rain"
+  ) {
+    iconElement.setAttribute("src", "/img/rain.png");
+  } else if (response.data.weather[0].description === "thunderstorm") {
+    iconElement.setAttribute("src", "/img/storm.png");
+  } else if (response.data.weather[0].description === "snow") {
+    iconElement.setAttribute("src", "/img/snow.png");
+  } else if (response.data.weather[0].description === "mist") {
+    iconElement.setAttribute("src", "/img/wind.png");
+  } else {
+    iconElement.setAttribute("src", "/img/cloud.png");
+  }
 }
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Barcelona&appid=894a2e7aa7f46eeca5d8778f6faa5a5b&units=metric`;
 axios.get(apiUrl).then(showWeather);
@@ -55,16 +75,37 @@ function searchMe(position) {
 function searchCity(response) {
   let h2 = document.querySelector("h2");
   let city = response.data.name;
-  h2.innerHTML = `${city}`;
   let temperature = Math.round(response.data.main.temp);
   let h1 = document.querySelector("h1");
-  h1.innerHTML = `${temperature}`;
   let humidity = Math.round(response.data.main.humidity);
   let h4humidity = document.querySelector("#humidity");
-  h4humidity.innerHTML = `Humidity: ${humidity}%`;
   let wind = Math.round(response.data.wind.speed);
   let h4wind = document.querySelector("#wind");
+  let iconElement = document.querySelector("#icon");
+
+  h2.innerHTML = `${city}`;
+  h1.innerHTML = `${temperature}`;
+  h4humidity.innerHTML = `Humidity: ${humidity}%`;
   h4wind.innerHTML = `Wind: ${wind}km/h`;
+
+  if (response.data.weather[0].description === "clear sky") {
+    iconElement.setAttribute("src", "/img/sun.png");
+  } else if (response.data.weather[0].description === "few clouds") {
+    iconElement.setAttribute("src", "/img/sunc.png");
+  } else if (
+    response.data.weather[0].description === "shower rain" ||
+    response.data.weather[0].description === "rain"
+  ) {
+    iconElement.setAttribute("src", "/img/rain.png");
+  } else if (response.data.weather[0].description === "thunderstorm") {
+    iconElement.setAttribute("src", "/img/storm.png");
+  } else if (response.data.weather[0].description === "snow") {
+    iconElement.setAttribute("src", "/img/snow.png");
+  } else if (response.data.weather[0].description === "mist") {
+    iconElement.setAttribute("src", "/img/wind.png");
+  } else {
+    iconElement.setAttribute("src", "/img/cloud.png");
+  }
 }
 
 document.getElementById("button").onclick = function () {
