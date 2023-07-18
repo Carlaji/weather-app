@@ -28,7 +28,14 @@ h3 {
   font-size: 30px;
   text-decoration: none;
   color: black;
+  cursor: pointer;
 }
+
+.row.today .active {
+  color: antiquewhite;
+  cursor: default;
+}
+
 .row.today p {
   margin-bottom: 5%;
   font-size: 30px;
@@ -36,20 +43,7 @@ h3 {
   color: black;
   padding: 0px;
 }
-#celsius {
-  margin-left: 13%;
-  margin-right: none;
-  position: relative;
-  left: 17px;
-}
-#fahrenheit {
-  position: relative;
-  left: -40px;
-}
-.row.today a:hover {
-  color: antiquewhite;
-  cursor: pointer;
-}
+
 .row.today h4 {
   margin-left: 1%;
 }
@@ -148,4 +142,16 @@ h3 {
 
 #github:hover {
   color: antiquewhite;
+}
+
+#celsius {
+  margin-left: 13%;
+  margin-right: none;
+  position: relative;
+  left: 17px;
+}
+
+#fahrenheit {
+  position: relative;
+  left: -40px;
 }

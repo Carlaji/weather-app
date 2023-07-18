@@ -25,6 +25,8 @@ function showWeather(response) {
   let humidity = Math.round(response.data.main.humidity);
   let wind = Math.round(response.data.wind.speed);
 
+  celsiusTemperature = response.data.main.temp;
+
   h1.innerHTML = `${temperature}`;
   h4wind.innerHTML = `Wind: ${wind}km/h`;
   h4humidity.innerHTML = `Humidity: ${humidity}%`;
@@ -112,19 +114,29 @@ document.getElementById("button").onclick = function () {
   navigator.geolocation.getCurrentPosition(searchMe);
 };
 
-// C to F ❌ NOW not avaible
+// C to F
 
-function changeC(event) {
+function displayCelsius(event) {
   event.preventDefault();
   let h1 = document.querySelector("#today-temperature");
+  h1.innerHTML = Math.round(celsiusTemperature);
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
 }
 
-function changeF(event) {
+function displayFarenheit(event) {
   event.preventDefault();
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
   let h1 = document.querySelector("#today-temperature");
+  h1.innerHTML = Math.round(fahrenheitTemperature);
 }
 
-let celsius = document.querySelector("#celsius");
-let fahrenheit = document.querySelector("#fahrenheit");
-celsius.addEventListener("click", changeC);
-fahrenheit.addEventListener("click", changeF);
+let celsiusTemperature = null;
+let celsiusLink = document.querySelector("#celsius");
+let fahrenheitLink = document.querySelector("#fahrenheit");
+celsiusLink.addEventListener("click", displayCelsius);
+fahrenheitLink.addEventListener("click", displayFarenheit);
+
+search("Barcelona");
