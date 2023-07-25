@@ -30,13 +30,11 @@
           <img
             src="/img/clear-sky-day.png"
             alt="Sun"
-            class="today-icon col-2"
+            class="today-icon col-4"
             id="icon"
           />
-          <h1 class="today-temperature col-1" id="today-temperature"></h1>
-          <a class="active col-1" id="celsius">°C</a>
-          <p class="col-1">|</p>
-          <a class="col-1" id="fahrenheit">°F</a>
+          <h1 class="today-temperature col-2" id="today-temperature"></h1>
+          <p class="active col-2" id="celsius">°C</p>
           <h4 class="col-4" id="humidity"></h4>
         </div>
         <div class="row city">
@@ -63,18 +61,20 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-8">
+        <div class="col-10">
+          <i class="fa-regular fa-clock"></i>
           <h3 id="current-time"></h3>
         </div>
-        <button class="col-4" id="button">Current Location</button>
+        <!-- <button class="col-4" id="button">Current Location</button> -->
+        <i class="col-2 fa-solid fa-location-dot" id="button"></i>
       </div>
       <div id="forecast">
         <br />
-
-        <a id="github" href="https://github.com/Carlaji/weather-app"
-          >Github repository</a
-        >
       </div>
+
+      <a id="github" href="https://github.com/Carlaji/weather-app"
+        >Open Source code by Carla Jimenez</a
+      >
     </div>
     <script src="/src/scripts.js"></script>
   </body>

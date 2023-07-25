@@ -13,7 +13,7 @@ let days = [
 let hour = now.getHours();
 let minutes = String(now.getMinutes()).padStart(2, "0");
 let h3 = document.querySelector("#current-time");
-h3.innerHTML = `Current Time: ${days[day]} ${hour}:${minutes}`;
+h3.innerHTML = `${days[day]} ${hour}:${minutes}`;
 
 // Change temperature + Wind + Humidity + change icon depending of temperature
 function showWeather(response) {
@@ -36,10 +36,6 @@ function showWeather(response) {
   document.getElementById(
     "icon"
   ).src = `/img/${response.data.condition.icon}.png`;
-
-  celsiusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
-  console.log(response.data);
 }
 
 let apiUrlForecast = `https://api.shecodes.io/weather/v1/forecast?query=Barcelona&key=29a93389cbc7b063100ft3doa5403cdf&units=metric`;
@@ -65,8 +61,8 @@ form.addEventListener("submit", changeCity);
 // Search my Current Location and change everything
 
 function searchMe(position) {
-  let latitude = position.coordinates.latitude;
-  let longitude = position.coordinates.longitude;
+  let latitude = position.coords.latitude;
+  let longitude = position.coords.longitude;
   let apiUrl = `https://api.shecodes.io/weather/v1/current?lon=${longitude}&lat=${latitude}&key=29a93389cbc7b063100ft3doa5403cdf&units=metric`;
 
   axios.get(apiUrl).then(searchCity);
@@ -74,7 +70,7 @@ function searchMe(position) {
 
 function searchCity(response) {
   let h2 = document.querySelector("h2");
-  let city = response.data.name;
+  let city = response.data.city;
   let temperature = Math.round(response.data.temperature.current);
   let h1 = document.querySelector("h1");
   let humidity = Math.round(response.data.temperature.humidity);
@@ -91,6 +87,8 @@ function searchCity(response) {
   document.getElementById(
     "icon"
   ).src = `/img/${response.data.condition.icon}.png`;
+  let apiUrlForecast = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=29a93389cbc7b063100ft3doa5403cdf&units=metric`;
+  axios.get(apiUrlForecast).then(displayForecast);
 }
 
 document.getElementById("button").onclick = function () {
@@ -120,7 +118,6 @@ function formatDay(timestamp) {
 }
 
 function displayForecast(response) {
-  console.log(response.data.daily);
   let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
 
@@ -156,31 +153,3 @@ function displayForecast(response) {
 
   forecastElement.innerHTML = forecastHTML;
 }
-
-// C to F
-
-function displayCelsius(event) {
-  event.preventDefault();
-  let h1 = document.querySelector("#today-temperature");
-  h1.innerHTML = Math.round(celsiusTemperature);
-  celsiusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
-}
-
-function displayFarenheit(event) {
-  event.preventDefault();
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
-  let h1 = document.querySelector("#today-temperature");
-  h1.innerHTML = Math.round(fahrenheitTemperature);
-}
-
-let celsiusTemperature = null;
-let celsiusLink = document.querySelector("#celsius");
-let fahrenheitLink = document.querySelector("#fahrenheit");
-celsiusLink.addEventListener("click", displayCelsius);
-fahrenheitLink.addEventListener("click", displayFarenheit);
-
-search("Barcelona");
-displayForecast();

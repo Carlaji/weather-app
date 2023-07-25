@@ -15,6 +15,10 @@ h3 {
   top: -30px;
 }
 
+i {
+  font-size: 30px;
+  font-weight: 900;
+}
 .row.today {
   padding-left: 15%;
 }
@@ -23,29 +27,17 @@ h3 {
   color: black;
   margin-top: 3%;
 }
-.row.today a {
-  margin-bottom: 5%;
-  font-size: 30px;
-  text-decoration: none;
-  color: black;
-  cursor: pointer;
-}
-
-.row.today .active {
-  color: antiquewhite;
-  cursor: default;
-}
 
 .row.today p {
   margin-bottom: 5%;
-  font-size: 30px;
+  font-size: 35px;
   text-decoration: none;
   color: black;
   padding: 0px;
 }
 
 .row.today h4 {
-  margin-left: 1%;
+  margin-left: 14%;
 }
 
 .row.city {
@@ -90,6 +82,7 @@ h3 {
   background-color: rgba(0, 0, 0, 0.614);
   color: antiquewhite;
   box-shadow: 1px 1px 2px 1px rgba(250, 235, 215, 0.3);
+  transition: all 150ms ease-in-out;
 }
 .weather-icon-week {
   width: 100px;
@@ -107,6 +100,7 @@ h3 {
 .day:hover {
   background-color: rgba(0, 0, 0, 0.312);
   color: antiquewhite;
+  transition: all 200ms ease-in-out;
 }
 .day img {
   height: 90px;
@@ -129,12 +123,19 @@ h3 {
   box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3);
   border-radius: 3px;
 }
-#button {
+#current-time {
   position: relative;
-  top: -36px;
-  max-width: 25%;
+  left: 46px;
+}
+
+#button {
+  max-width: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: rgba(250, 235, 215, 0.784);
-  border-radius: 5px;
+  border-radius: 10px;
+  height: 60px;
   box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3);
 }
 
@@ -142,27 +143,19 @@ h3 {
   background-color: rgba(0, 0, 0, 0.516);
   color: antiquewhite;
   box-shadow: 1px 1px 2px 1px rgba(250, 235, 215, 0.3);
+  transition: all 150ms ease-in-out;
 }
 
 #github {
   color: black;
   text-decoration: none;
+  position: fixed;
+  bottom: 40px;
 }
 
 #github:hover {
   color: antiquewhite;
-}
-
-#celsius {
-  margin-left: 13%;
-  margin-right: none;
-  position: relative;
-  left: 17px;
-}
-
-#fahrenheit {
-  position: relative;
-  left: -40px;
+  transition: all 200ms ease-in-out;
 }
 
 #weather-description {
