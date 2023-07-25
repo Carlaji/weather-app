@@ -20,44 +20,32 @@ function showWeather(response) {
   let h1 = document.querySelector("h1");
   let h4wind = document.querySelector("#wind");
   let h4humidity = document.querySelector("#humidity");
-  let iconElement = document.querySelector("#icon");
-  let description = document.querySelector("#weather-description");
-  let temperature = Math.round(response.data.main.temp);
-  let humidity = Math.round(response.data.main.humidity);
-  let wind = Math.round(response.data.wind.speed);
-  let weatherDescription = response.data.weather[0].main;
 
-  celsiusTemperature = response.data.main.temp;
+  let description = document.querySelector("#weather-description");
+  let temperature = Math.round(response.data.temperature.current);
+  let humidity = Math.round(response.data.temperature.humidity);
+  let wind = Math.round(response.data.wind.speed);
+  let weatherDescription = response.data.condition.description;
+
+  celsiusTemperature = response.data.temperature.current;
 
   h1.innerHTML = `${temperature}`;
   h4wind.innerHTML = `Wind: ${wind}km/h`;
   h4humidity.innerHTML = `Humidity: ${humidity}%`;
   description.innerHTML = `${weatherDescription}`;
+  document.getElementById(
+    "icon"
+  ).src = `/img/${response.data.condition.icon}.png`;
 
   celsiusLink.classList.add("active");
   fahrenheitLink.classList.remove("active");
-
-  if (response.data.weather[0].description === "clear sky") {
-    iconElement.setAttribute("src", "/img/sun.png");
-  } else if (response.data.weather[0].description === "few clouds") {
-    iconElement.setAttribute("src", "/img/sunc.png");
-  } else if (response.data.weather[0].main === "Rain") {
-    iconElement.setAttribute("src", "/img/rain.png");
-  } else if (response.data.weather[0].description === "thunderstorm") {
-    iconElement.setAttribute("src", "/img/storm.png");
-  } else if (response.data.weather[0].description === "snow") {
-    iconElement.setAttribute("src", "/img/snow.png");
-  } else if (response.data.weather[0].description === "mist") {
-    iconElement.setAttribute("src", "/img/wind.png");
-  } else {
-    iconElement.setAttribute("src", "/img/cloud.png");
-  }
+  console.log(response.data);
 }
 
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Barcelona&appid=894a2e7aa7f46eeca5d8778f6faa5a5b&units=metric`;
-let apiUrlSheCodes = `https://api.shecodes.io/weather/v1/forecast?query=Barcelona&key=29a93389cbc7b063100ft3doa5403cdf&units=metric`;
+let apiUrlForecast = `https://api.shecodes.io/weather/v1/forecast?query=Barcelona&key=29a93389cbc7b063100ft3doa5403cdf&units=metric`;
+let apiUrl = `https://api.shecodes.io/weather/v1/current?query=Barcelona&key=29a93389cbc7b063100ft3doa5403cdf`;
 axios.get(apiUrl).then(showWeather);
-axios.get(apiUrlSheCodes).then(displayForecast);
+axios.get(apiUrlForecast).then(displayForecast);
 
 // Search for city title and change
 function changeCity(event) {
@@ -65,10 +53,10 @@ function changeCity(event) {
   let formSearch = document.querySelector("#form-write");
   let h2 = document.querySelector("h2");
   h2.innerHTML = `${formSearch.value}`;
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${formSearch.value}&appid=894a2e7aa7f46eeca5d8778f6faa5a5b&units=metric`;
-  let apiUrlSheCodes = `https://api.shecodes.io/weather/v1/forecast?query=${formSearch.value}&key=29a93389cbc7b063100ft3doa5403cdf&units=metric`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${formSearch.value}&key=29a93389cbc7b063100ft3doa5403cdf&units=metric`;
+  let apiUrlForecast = `https://api.shecodes.io/weather/v1/forecast?query=${formSearch.value}&key=29a93389cbc7b063100ft3doa5403cdf&units=metric`;
   axios.get(apiUrl).then(showWeather);
-  axios.get(apiUrlSheCodes).then(displayForecast);
+  axios.get(apiUrlForecast).then(displayForecast);
 }
 
 let form = document.querySelector("#form-city");
@@ -77,47 +65,32 @@ form.addEventListener("submit", changeCity);
 // Search my Current Location and change everything
 
 function searchMe(position) {
-  let latitude = position.coords.latitude;
-  let longitude = position.coords.longitude;
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=894a2e7aa7f46eeca5d8778f6faa5a5b&units=metric`;
+  let latitude = position.coordinates.latitude;
+  let longitude = position.coordinates.longitude;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?lon=${longitude}&lat=${latitude}&key=29a93389cbc7b063100ft3doa5403cdf&units=metric`;
+
   axios.get(apiUrl).then(searchCity);
 }
 
 function searchCity(response) {
   let h2 = document.querySelector("h2");
   let city = response.data.name;
-  let temperature = Math.round(response.data.main.temp);
+  let temperature = Math.round(response.data.temperature.current);
   let h1 = document.querySelector("h1");
-  let humidity = Math.round(response.data.main.humidity);
+  let humidity = Math.round(response.data.temperature.humidity);
   let h4humidity = document.querySelector("#humidity");
   let wind = Math.round(response.data.wind.speed);
   let h4wind = document.querySelector("#wind");
-  let iconElement = document.querySelector("#icon");
   let description = document.querySelector("#weather-description");
-  let weatherDescription = response.data.weather[0].main;
+  let weatherDescription = response.data.condition.description;
   description.innerHTML = `${weatherDescription}`;
   h2.innerHTML = `${city}`;
   h1.innerHTML = `${temperature}`;
   h4humidity.innerHTML = `Humidity: ${humidity}%`;
   h4wind.innerHTML = `Wind: ${wind}km/h`;
-  if (response.data.weather[0].description === "clear sky") {
-    iconElement.setAttribute("src", "/img/sun.png");
-  } else if (response.data.weather[0].description === "few clouds") {
-    iconElement.setAttribute("src", "/img/sunc.png");
-  } else if (
-    response.data.weather[0].description === "shower rain" ||
-    response.data.weather[0].description === "rain"
-  ) {
-    iconElement.setAttribute("src", "/img/rain.png");
-  } else if (response.data.weather[0].description === "thunderstorm") {
-    iconElement.setAttribute("src", "/img/storm.png");
-  } else if (response.data.weather[0].description === "snow") {
-    iconElement.setAttribute("src", "/img/snow.png");
-  } else if (response.data.weather[0].description === "mist") {
-    iconElement.setAttribute("src", "/img/wind.png");
-  } else {
-    iconElement.setAttribute("src", "/img/cloud.png");
-  }
+  document.getElementById(
+    "icon"
+  ).src = `/img/${response.data.condition.icon}.png`;
 }
 
 document.getElementById("button").onclick = function () {
@@ -125,36 +98,58 @@ document.getElementById("button").onclick = function () {
 };
 
 function search(city) {
-  let apiKey = "cabdbda40038ba7d1165b953b1c7bd6c";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=29a93389cbc7b063100ft3doa5403cdf&units=metric`;
   axios.get(apiUrl).then(showWeather);
 }
 
 //Forecast week
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
+
+  return days[day];
+}
+
 function displayForecast(response) {
   console.log(response.data.daily);
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
 
   let forecastHTML = `<div class="row">`;
   let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `
           <div class="day col-2">
-            <h5>${day}</h5>
+            <h5>${formatDay(forecastDay.time)}</h5>
             <img
-              src="/img/sunc.png"
+              src="/img/${forecastDay.condition.icon}.png"
               class="weather-icon-week"
               alt="Sunny and Cloudy"
             />
             <div class="day-temperature">
-              <span class="day-temperature-max"> 22° </span>
-              <span class="day-temperature-min">24°</span>
+              <span class="day-temperature-max"> ${Math.round(
+                forecastDay.temperature.maximum
+              )}° </span>
+              <span class="day-temperature-min">${Math.round(
+                forecastDay.temperature.minimum
+              )}°</span>
             </div>
           </div>
        
         `;
+    }
   });
 
   forecastHTML = forecastHTML + `</div>`;
