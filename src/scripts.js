@@ -20,6 +20,14 @@ function showWeather(response) {
   let h1 = document.querySelector("h1");
   let h4wind = document.querySelector("#wind");
   let h4humidity = document.querySelector("#humidity");
+  let h2 = document.querySelector("h2");
+  let p = document.querySelector("#celsius");
+  let h3 = document.querySelector("h3");
+  let i = document.querySelector("i");
+  let button = document.querySelector("#button");
+  let form = document.querySelector("#form-write");
+  let form2 = document.querySelector("#form-search");
+  let github = document.querySelector("#github");
 
   let description = document.querySelector("#weather-description");
   let temperature = Math.round(response.data.temperature.current);
@@ -36,6 +44,64 @@ function showWeather(response) {
   document.getElementById(
     "icon"
   ).src = `/img/${response.data.condition.icon}.png`;
+
+  if (hour >= 6 && hour < 12) {
+    document.body.style.backgroundImage = "url('/img/Morning.png')";
+    h1.classList.remove("active");
+    h4wind.classList.remove("active");
+    h4humidity.classList.remove("active");
+    description.classList.remove("active");
+    h2.classList.remove("active");
+    p.classList.remove("active");
+    h3.classList.remove("active");
+    i.classList.remove("active");
+    button.classList.remove("activeButton");
+    form.classList.remove("activeButton");
+    form2.classList.remove("activeButton");
+    button.classList.add("normalButton");
+  } else if (hour >= 12 && hour < 16) {
+    document.body.style.backgroundImage = "url('/img/Afternoon.png')";
+    h1.classList.remove("active");
+    h4wind.classList.remove("active");
+    h4humidity.classList.remove("active");
+    description.classList.remove("active");
+    h2.classList.remove("active");
+    p.classList.remove("active");
+    h3.classList.remove("active");
+    i.classList.remove("active");
+    button.classList.remove("activeButton");
+    form.classList.remove("activeButton");
+    form2.classList.remove("activeButton");
+    button.classList.add("normalButton");
+  } else if (hour >= 16 && hour < 21) {
+    document.body.style.backgroundImage = "url('/img/Evening.png')";
+    h1.classList.remove("active");
+    h4wind.classList.remove("active");
+    h4humidity.classList.remove("active");
+    description.classList.remove("active");
+    h2.classList.remove("active");
+    p.classList.remove("active");
+    h3.classList.remove("active");
+    i.classList.remove("active");
+    button.classList.remove("activeButton");
+    form.classList.remove("activeButton");
+    form2.classList.remove("activeButton");
+    button.classList.add("normalButton");
+  } else {
+    document.body.style.backgroundImage = "url('/img/Night.png')";
+    h1.classList.add("active");
+    h4wind.classList.add("active");
+    h4humidity.classList.add("active");
+    description.classList.add("active");
+    h2.classList.add("active");
+    p.classList.add("active");
+    h3.classList.add("active");
+    i.classList.add("active");
+    button.classList.remove("normalButton");
+    button.classList.add("activeButton");
+    form.classList.add("activeButton");
+    form2.classList.add("activeButton");
+  }
 }
 
 let apiUrlForecast = `https://api.shecodes.io/weather/v1/forecast?query=Barcelona&key=29a93389cbc7b063100ft3doa5403cdf&units=metric`;
