@@ -34,14 +34,14 @@ function showWeather(response) {
   h4humidity.innerHTML = `Humidity: ${humidity}%`;
   description.innerHTML = `${weatherDescription}`;
 
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+
   if (response.data.weather[0].description === "clear sky") {
     iconElement.setAttribute("src", "/img/sun.png");
   } else if (response.data.weather[0].description === "few clouds") {
     iconElement.setAttribute("src", "/img/sunc.png");
-  } else if (
-    response.data.weather[0].description === "shower rain" ||
-    response.data.weather[0].description === "rain"
-  ) {
+  } else if (response.data.weather[0].main === "Rain") {
     iconElement.setAttribute("src", "/img/rain.png");
   } else if (response.data.weather[0].description === "thunderstorm") {
     iconElement.setAttribute("src", "/img/storm.png");
@@ -53,8 +53,11 @@ function showWeather(response) {
     iconElement.setAttribute("src", "/img/cloud.png");
   }
 }
+
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Barcelona&appid=894a2e7aa7f46eeca5d8778f6faa5a5b&units=metric`;
+let apiUrlSheCodes = `https://api.shecodes.io/weather/v1/forecast?query=Barcelona&key=29a93389cbc7b063100ft3doa5403cdf&units=metric`;
 axios.get(apiUrl).then(showWeather);
+axios.get(apiUrlSheCodes).then(displayForecast);
 
 // Search for city title and change
 function changeCity(event) {
@@ -63,7 +66,9 @@ function changeCity(event) {
   let h2 = document.querySelector("h2");
   h2.innerHTML = `${formSearch.value}`;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${formSearch.value}&appid=894a2e7aa7f46eeca5d8778f6faa5a5b&units=metric`;
+  let apiUrlSheCodes = `https://api.shecodes.io/weather/v1/forecast?query=${formSearch.value}&key=29a93389cbc7b063100ft3doa5403cdf&units=metric`;
   axios.get(apiUrl).then(showWeather);
+  axios.get(apiUrlSheCodes).then(displayForecast);
 }
 
 let form = document.querySelector("#form-city");
@@ -95,7 +100,6 @@ function searchCity(response) {
   h1.innerHTML = `${temperature}`;
   h4humidity.innerHTML = `Humidity: ${humidity}%`;
   h4wind.innerHTML = `Wind: ${wind}km/h`;
-
   if (response.data.weather[0].description === "clear sky") {
     iconElement.setAttribute("src", "/img/sun.png");
   } else if (response.data.weather[0].description === "few clouds") {
@@ -125,6 +129,39 @@ function search(city) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(showWeather);
 }
+
+//Forecast week
+function displayForecast(response) {
+  console.log(response.data.daily);
+  let forecastElement = document.querySelector("#forecast");
+
+  let forecastHTML = `<div class="row">`;
+  let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+          <div class="day col-2">
+            <h5>${day}</h5>
+            <img
+              src="/img/sunc.png"
+              class="weather-icon-week"
+              alt="Sunny and Cloudy"
+            />
+            <div class="day-temperature">
+              <span class="day-temperature-max"> 22° </span>
+              <span class="day-temperature-min">24°</span>
+            </div>
+          </div>
+       
+        `;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+
+  forecastElement.innerHTML = forecastHTML;
+}
+
 // C to F
 
 function displayCelsius(event) {
@@ -151,3 +188,4 @@ celsiusLink.addEventListener("click", displayCelsius);
 fahrenheitLink.addEventListener("click", displayFarenheit);
 
 search("Barcelona");
+displayForecast();

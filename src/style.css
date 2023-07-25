@@ -66,6 +66,7 @@ h3 {
   font-size: 100px;
   font-weight: 700;
 }
+
 .row.today h1 {
   padding-left: 5%;
 }
@@ -117,7 +118,12 @@ h3 {
 .day p {
   margin-top: 20px;
 }
-
+.day-temperature {
+  margin: 17px 0 10px;
+}
+.day-temperature-min {
+  color: rgba(0, 0, 0, 0.497);
+}
 #form-write {
   background-color: rgba(250, 235, 215, 0.762);
   box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3);
